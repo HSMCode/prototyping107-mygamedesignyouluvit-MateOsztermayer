@@ -7,7 +7,13 @@ public class goal : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private bool WinScreen = true;
     public GameObject WinScreenUI;
+    private AudioSource audioSource;
+    public AudioClip winSound;
 
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Reset()
     {
@@ -21,12 +27,14 @@ public class goal : MonoBehaviour
         {
             Debug.Log("YOU WIN");
             WinScreen = true;  
+            audioSource.PlayOneShot(winSound);
 
-            if(WinScreen == true){
+            if(WinScreen == true)
+            {
                 WinScreenUI.SetActive(true);
                 WinScreen = false;
                 Time.timeScale = 0f;
-                }
+            }
         }
     }
 

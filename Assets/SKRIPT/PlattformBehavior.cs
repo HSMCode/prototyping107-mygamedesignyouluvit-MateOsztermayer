@@ -7,44 +7,53 @@ public class PlattformBehavior : MonoBehaviour
     private SpriteRenderer rend;
     private BoxCollider2D col;
     private int bounceCount;
+    private AudioSource audioSource;
+    public AudioClip[] boingSounds;
+    public bool destructuble = true;
 
     void Start()
     {
         rend = GetComponent<SpriteRenderer>();
         col = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if (bounceCount <= 0)
-        {
-            Color c = rend.material.color;
-            c = Color.white;
-            rend.material.color = c;
+        if(destructuble){
+
+            if (bounceCount <= 0)
+            {
+                Color c = rend.material.color;
+                c = Color.white;
+                rend.material.color = c;
+            }
+            else if (bounceCount == 1)
+            {
+                Color c = rend.material.color;
+                c = Color.green;
+                rend.material.color = c;
+            }
+            else if (bounceCount == 2)
+            {
+                Color c = rend.material.color;
+                c = Color.yellow;
+                rend.material.color = c;
+            }
+            else if (bounceCount == 3)
+            {
+                Color c = rend.material.color;
+                c = Color.red;
+                rend.material.color = c;
+            }
+            else if (bounceCount >= 4)
+            {
+                bounceCount = 0;
+                StartCoroutine(PlattformRespawnCo());
+            }
+
         }
-        else if (bounceCount == 1)
-        {
-            Color c = rend.material.color;
-            c = Color.green;
-            rend.material.color = c;
-        }
-        else if (bounceCount == 2)
-        {
-            Color c = rend.material.color;
-            c = Color.yellow;
-            rend.material.color = c;
-        }
-        else if (bounceCount == 3)
-        {
-            Color c = rend.material.color;
-            c = Color.red;
-            rend.material.color = c;
-        }
-        else if (bounceCount >= 4)
-        {
-            bounceCount = 0;
-            StartCoroutine(PlattformRespawnCo());
-        }
+        
     }
 
     IEnumerator PlattformRespawnCo()
@@ -62,6 +71,7 @@ public class PlattformBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             bounceCount++;
+            audioSource.PlayOneShot(boingSounds[Random.Range(0, boingSounds.Length)]);
         }
     }
 }
