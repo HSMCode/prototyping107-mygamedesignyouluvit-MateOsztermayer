@@ -20,11 +20,4 @@ public class dead : MonoBehaviour
             Physics.SyncTransforms();
         }
     }
-
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

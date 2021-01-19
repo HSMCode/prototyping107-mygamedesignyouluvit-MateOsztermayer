@@ -37,11 +37,4 @@ public class goal : MonoBehaviour
             }
         }
     }
-
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
